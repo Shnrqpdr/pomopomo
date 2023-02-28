@@ -15,10 +15,6 @@ This is a simple pomodoro timer build with Nuxt and Vue ecossystem.
 
 <details>
 <summary style='font-size: 21px'> Screenshots </summary>
-
-  ![timer: dark theme](/screenshots/timer-dark.png)
-  ![timer: light theme](/screenshots/timer-light.png)
-  ![settings](/screenshots/settings.png)
 </details>
 
 ## Run Locally
