@@ -1,13 +1,15 @@
-import createVuetify from 'vuetify'
+import {createVuetify} from 'vuetify'
 import * as components from 'vuetify/components'
 import * as directives from 'vuetify/directives'
 
-export default defineNuxtPlugin(nuxtApp => {
+export default defineNuxtPlugin((nuxt) => {
   const vuetify = createVuetify({
     ssr: true,
     components,
     directives,
+    theme: {
+      defaultTheme: 'dark'
+    }
   })
-
-  nuxtApp.vueApp.use(vuetify)
+  nuxt.vueApp.use(vuetify);
 })
