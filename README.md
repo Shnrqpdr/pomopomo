@@ -1,44 +1,48 @@
+# PomoPomo
 
+This is a simple pomodoro timer build with Nuxt and Vue ecossystem.
 
-# Nuxt 3 Minimal Starter
+![Nuxtjs](https://img.shields.io/badge/Nuxt-002E3B?style=for-the-badge&logo=nuxtdotjs&logoColor=#00DC82)
+![Vue.js](https://img.shields.io/badge/vuejs-%2335495e.svg?style=for-the-badge&logo=vuedotjs&logoColor=%234FC08D)
+![Vuetify](https://img.shields.io/badge/Vuetify-1867C0?style=for-the-badge&logo=vuetify&logoColor=AEDDFF)
 
-Look at the [Nuxt 3 documentation](https://nuxt.com/docs/getting-started/introduction) to learn more.
+## Features
 
-## Setup
+- Session times can be customized
+- Browser notifications
+- Alarm sound when a session end
+- Dark / Light Themes
 
-Make sure to install the dependencies:
+<details>
+<summary style='font-size: 21px'> Screenshots </summary>
 
-```bash
-# yarn
-yarn install
+  ![timer: dark theme](/screenshots/timer-dark.png)
+  ![timer: light theme](/screenshots/timer-light.png)
+  ![settings](/screenshots/settings.png)
+</details>
 
-# npm
-npm install
+## Run Locally
 
-# pnpm
-pnpm install
-```
-
-## Development Server
-
-Start the development server on http://localhost:3000
-
-```bash
-npm run dev
-```
-
-## Production
-
-Build the application for production:
+Clone the project
 
 ```bash
-npm run build
+  git clone https://github.com/itsmohmans/PomoDo.git
+
+  cd PomoDo
 ```
 
-Locally preview production build:
+Install dependencies (node v18)
 
 ```bash
-npm run preview
+  npm install
 ```
 
-Check out the [deployment documentation](https://nuxt.com/docs/getting-started/deployment) for more information.
+Run the app on http://localhost:3000
+
+```bash
+  npm run dev
+```
+
+## Contributing
+
+Contributions are always welcome!
