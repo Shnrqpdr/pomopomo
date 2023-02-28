@@ -22,9 +22,8 @@ This is a simple pomodoro timer build with Nuxt and Vue ecossystem.
 Clone the project
 
 ```bash
-  git clone https://github.com/itsmohmans/PomoDo.git
-
-  cd PomoDo
+  git clone https://github.com/Shnrqpdr/pomopomo.git
+  cd pomopomo
 ```
 
 Install dependencies (node v18)
