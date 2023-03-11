@@ -15,7 +15,7 @@ export const useAppStore = defineStore('app', {
     toggleTheme() {
       this.theme = this.theme === 'light' ? 'dark' : 'light'
     },
-    setTheme(theme) {
+    setTheme(theme: string) {
       this.theme = theme
     }
   }
