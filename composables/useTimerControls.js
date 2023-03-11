@@ -1,5 +1,5 @@
-import { useTimerStore } from '/stores/timer';
-import { useAppStore } from '~~/stores/app';
+import { useTimerStore } from '@/stores/Timer';
+import { useAppStore } from '@/stores/app';
 
 export const useTimerControls = () => {
   const timer = useTimerStore(), app = useAppStore()
