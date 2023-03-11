@@ -12,7 +12,11 @@
         </template>
       </v-app-bar>
       <v-main>
-        <NuxtPage />
+        <v-parallax
+          src="https://imagizer.imageshack.com/img924/8762/nhjx3N.jpg"
+        >
+          <NuxtPage />
+        </v-parallax>
       </v-main>
     </v-app>
   </div>
