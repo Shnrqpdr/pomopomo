@@ -1,43 +1,50 @@
-<script setup lang="ts">
-import { useTimerStore as timer } from '../../../stores/Timer'
+<script lang="ts">
+import { useTimerStore } from '../../../stores/Timer'
 import { useDisplay } from 'vuetify'
+import { mapActions } from 'pinia';
 
-const { mobile } = useDisplay()
-const {toggleTimer, clearTimer} = useTimerControls()
+export default defineComponent({
+  setup() {
+    const timer = useTimerStore();
+    const { mobile } = useDisplay()
 
-// Keyboard shortcut to toggle timer (spacebar)
-onKeyStroke(" ", (e) => {
-  e.preventDefault()
-  toggleTimer()
-})
-
-onBeforeUnmount(clearTimer())
-
-function onKeyStroke(arg0: string, arg1: (e: any) => void) {
-    throw new Error('Function not implemented.');
-}
+    return {
+      timer,
+      mobile,
+    };
+  },
+  beforeDestroy() {
+    this.clearTimeRemaining()
+  },
+  data() {
+    return {};
+  },
+  methods: {
+    ...mapActions(useTimerStore, ['toggleTimer', 'clearTimeRemaining']),
+  }
+});
 </script>
 
 <template>
     <div class="controls-container">
       <v-btn
-        :disabled="!(timer().isStarted || timer().getTimeRemaining !== timer().settings[timer().currentSession].time * 60)"
+        :disabled="!(timer.isStarted || timer.getTimeRemaining)"
         variant="outlined"
         size="small"
         icon
-        :color="timer().settings[timer().currentSession].color"
-        @click="clearTimer"
+        :color="timer.getCurrentSession.color"
+        @click="clearTimeRemaining"
       >
         <v-icon>mdi-stop</v-icon>
       </v-btn>
       <v-btn
         elevation="4"
         size="x-large" width="144"
-        :color="timer().settings[timer().currentSession].color"
-        :variant="timer().isStarted ? 'outlined' : 'elevated'"
+        :color="timer.getCurrentSession.color"
+        :variant="timer.isStarted ? 'outlined' : 'elevated'"
         @click="toggleTimer"
       >
-        {{timer().isStarted ? 'Pause' : 'Start'}}
+        {{timer.isStarted ? 'Pause' : 'Start'}}
         <v-tooltip
           v-if="!mobile"
           activator="parent"
@@ -51,8 +58,8 @@ function onKeyStroke(arg0: string, arg1: (e: any) => void) {
         variant="outlined"
         size="small"
         icon
-        :color="timer().settings[timer().currentSession].color"
-        @click="timer().nextSession()"
+        :color="timer.getCurrentSession.color"
+        @click="timer.nextSession()"
       >
         <v-icon>mdi-skip-next</v-icon>
       </v-btn>

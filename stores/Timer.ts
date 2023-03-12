@@ -7,7 +7,7 @@ export const useTimerStore = defineStore('timer', {
         'work': {
             text: 'Work',
             time: 25, // in minutes
-            color: 'teal'
+            color: '#00FF7F'
         },
         'short-break': {
             text: 'Short Break',
@@ -20,17 +20,17 @@ export const useTimerStore = defineStore('timer', {
             color: 'light-blue'
         }
     },
-    timeRemaining: 25*60 as number | any, // in seconds
+    timeRemaining: 25*60 as number | any, 
     currentSession: 'work' as string,
     currentSessionNumber: 1,
-    maxSessions: 4,   // the number of sessions before a long break
+    maxSessions: 4, 
     autoStart: true
   }),
 getters: {
     isStarted: (state: any) => state.started,
     getTimeRemaining: (state: any) => state.timeRemaining,
     getSessionTime: (state: any) => state.settings[state.currentSession].time,
-    getCurrentSession: (state: any) => state.currentSession,
+    getCurrentSession: (state: any) => state.settings[state.currentSession],
     isWork: (state: any) => state.settings[state.currentSession] === 'work',
     getCurrentSessionNumber: (state: any) => state.currentSessionNumber,
     getMaxSessions: (state: any) => state.maxSessions,
@@ -41,12 +41,11 @@ actions: {
     },
     clearTimeRemaining() {
         this.timeRemaining = this.getSessionTime * 60
-        },
+    },
     setTimeRemaining(time: number) {
         this.timeRemaining = time
     },
     nextSession() {
-        // if current session is not work (i.e. a break) 
         if (this.currentSession !== 'work') {
             this.currentSessionNumber = this.currentSessionNumber % this.maxSessions + 1
             this.currentSession = 'work'

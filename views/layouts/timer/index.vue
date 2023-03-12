@@ -13,7 +13,7 @@ export default defineComponent({
 <template>
     <div class="timer-container">
       <Progress />
-      <!-- <Controls /> -->
+      <Controls />
     </div>
 </template>
 <style scoped lang="scss">

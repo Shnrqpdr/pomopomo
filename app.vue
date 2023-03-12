@@ -66,8 +66,8 @@ export default defineComponent({
 })
 </script>
 
-<style lang="scss" scoped>
-img {
-  opacity: 0.5;
+<style lang="scss">
+.v-img__img {
+  opacity: 0.5 !important;
 }
 </style>

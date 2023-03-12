@@ -30,17 +30,22 @@ export default defineComponent({
       {{ String(getMinutes()).padStart(2, '0') }}:{{ String(getSeconds()).padStart(2, '0') }}
       </v-progress-circular>
       <div class="session-info">
-        <p>{{ `work` }}</p>
+        <p>{{ timer.getCurrentSession.text }}</p>
         <p>Session {{ timer.getCurrentSessionNumber }} / {{ timer.getMaxSessions }}</p>
       </div>
     </div>
 </template>
 
-<style scoped>
+<style lang="scss" scoped>
   .progress {
     font-size: 5rem;
   }
   .session-info {
     margin-top: 2rem;
+
+    p {
+      font-size: 24px;
+      font-weight: 700;
+    }
   }
 </style>
