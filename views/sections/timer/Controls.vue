@@ -1,7 +1,8 @@
 <script lang="ts">
 import { useTimerStore } from '../../../stores/Timer'
 import { useDisplay } from 'vuetify'
-import { mapActions } from 'pinia';
+import { mapActions, mapState } from 'pinia';
+import type {TimerProperties} from '@/stores/types'
 
 export default defineComponent({
   setup() {
@@ -19,6 +20,23 @@ export default defineComponent({
   data() {
     return {};
   },
+  computed: {
+    ...mapState(useTimerStore, ['timeRemaining', 'settings', 'currentSession']),
+    getSession(): TimerProperties {
+        let session = {} as TimerProperties
+        if(this.currentSession === 'work') {
+            session = this.settings['work']
+        }
+        if(this.currentSession === 'short-break') {
+            session = this.settings['short-break']
+        }
+        if(this.currentSession === 'long-break'){
+            session = this.settings['long-break']
+        }
+
+        return session
+    },
+  },
   methods: {
     ...mapActions(useTimerStore, ['toggleTimer', 'clearTimeRemaining']),
   }
@@ -32,7 +50,7 @@ export default defineComponent({
         variant="outlined"
         size="small"
         icon
-        :color="timer.getCurrentSession.color"
+        :color="getSession.color"
         @click="clearTimeRemaining"
       >
         <v-icon>mdi-stop</v-icon>
@@ -40,7 +58,7 @@ export default defineComponent({
       <v-btn
         elevation="4"
         size="x-large" width="144"
-        :color="timer.getCurrentSession.color"
+        :color="getSession.color"
         :variant="timer.isStarted ? 'outlined' : 'elevated'"
         @click="toggleTimer"
       >
@@ -58,7 +76,7 @@ export default defineComponent({
         variant="outlined"
         size="small"
         icon
-        :color="timer.getCurrentSession.color"
+        :color="getSession.color"
         @click="timer.nextSession()"
       >
         <v-icon>mdi-skip-next</v-icon>

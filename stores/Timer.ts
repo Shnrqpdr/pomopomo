@@ -1,4 +1,5 @@
 import { defineStore } from 'pinia'
+import type {TimerProperties} from '@/stores/types'
 
 export const useTimerStore = defineStore('timer', {
   state: () => ({
@@ -30,17 +31,30 @@ getters: {
     isStarted: (state: any) => state.started,
     getTimeRemaining: (state: any) => state.timeRemaining,
     getSessionTime: (state: any) => state.settings[state.currentSession].time,
-    getCurrentSession: (state: any) => state.settings[state.currentSession],
     isWork: (state: any) => state.settings[state.currentSession] === 'work',
     getCurrentSessionNumber: (state: any) => state.currentSessionNumber,
     getMaxSessions: (state: any) => state.maxSessions,
 },
 actions: {
+    getSession(): TimerProperties {
+        let session = {} as TimerProperties
+        if(this.currentSession === 'work') {
+            session = this.settings['work']
+        }
+        if(this.currentSession === 'short-break') {
+            session = this.settings['short-break']
+        }
+        if(this.currentSession === 'long-break'){
+            session = this.settings['long-break']
+        }
+
+        return session
+    },
     toggleTimer() {
         this.started = !this.started
     },
     clearTimeRemaining() {
-        this.timeRemaining = this.getSessionTime * 60
+        this.timeRemaining = this.getSession().time * 60
     },
     setTimeRemaining(time: number) {
         this.timeRemaining = time
@@ -57,7 +71,7 @@ actions: {
             this.currentSession = 'short-break'
         }
         
-        this.timeRemaining = this.getSessionTime.time * 60
+        this.timeRemaining = this.getSession().time * 60
     },
     setMaxSessions(maxSessionsNumber: number) {
         this.maxSessions = maxSessionsNumber

@@ -1,17 +1,36 @@
 <script lang="ts">
+import { mapState } from 'pinia'
 import { useTimerStore as timer, useTimerStore } from '../../../stores/Timer'
+import type {TimerProperties} from '@/stores/types'
 
 export default defineComponent({
   setup(){
     const timer = useTimerStore()
-    const getMinutes = () => Math.floor(timer.getTimeRemaining / 60)
-    const getSeconds = () => timer.getTimeRemaining - 60 * getMinutes()
+    const getMinutes = () => Math.floor(timer.timeRemaining / 60)
+    const getSeconds = () => timer.timeRemaining - 60 * getMinutes()
 
     return {
-      timer,
+      timer,    
       getMinutes,
       getSeconds,
     }
+  },
+  computed: {
+    ...mapState(useTimerStore, ['timeRemaining', 'settings', 'currentSession']),
+    getSession(): TimerProperties {
+        let session = {} as TimerProperties
+        if(this.currentSession === 'work') {
+            session = this.settings['work']
+        }
+        if(this.currentSession === 'short-break') {
+            session = this.settings['short-break']
+        }
+        if(this.currentSession === 'long-break'){
+            session = this.settings['long-break']
+        }
+
+        return session
+    },
   }
 })
 
@@ -24,13 +43,13 @@ export default defineComponent({
         :size="400"
         :width="3"
         class="progress"
-        :model-value="(timer.getTimeRemaining * 100) / (timer.getSessionTime * 60)"
-        :color="`#00FF7F`"
+        :model-value="(timeRemaining * 100) / (getSession.time * 60)"
+        :color="getSession.color"
       >
       {{ String(getMinutes()).padStart(2, '0') }}:{{ String(getSeconds()).padStart(2, '0') }}
       </v-progress-circular>
       <div class="session-info">
-        <p>{{ timer.getCurrentSession.text }}</p>
+        <p>{{ getSession.text }}</p>
         <p>Session {{ timer.getCurrentSessionNumber }} / {{ timer.getMaxSessions }}</p>
       </div>
     </div>
