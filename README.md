@@ -11,11 +11,6 @@ This is a simple pomodoro timer build with Nuxt and Vue ecossystem.
 - Session times can be customized
 - Browser notifications
 - Alarm sound when a session end
-- Dark / Light Themes
-
-<details>
-<summary style='font-size: 21px'> Screenshots </summary>
-</details>
 
 ## Run Locally
 
