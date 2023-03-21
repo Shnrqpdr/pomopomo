@@ -14,20 +14,20 @@ export const useTimerControls = () => {
   }
 
   const startTimer = () => {
-    if (timer.getTimeRemaining <= 0) {
+    if (timer.timeRemaining <= 0) {
       const currentSession = timer.settings[timer.currentSession].text
       
       timer.nextSession()
       if (app.playSessionEndSound) playAlarm()
       const nextSession = timer.settings[timer.currentSession].text
   
-      if (app.showNotification) showNotification(currentSession, nextSession)
+      // if (app.showNotification) showNotification(currentSession, nextSession)
       
       if (timer.autoStart)
         return
       return toggleTimer()
     }
-    timer.setTimeRemaining(timer.getTimeRemaining - 1)
+    timer.setTimeRemaining(timer.timeRemaining - 1)
   }
 
   const clearTimer = () => {

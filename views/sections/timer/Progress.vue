@@ -29,6 +29,8 @@ export default defineComponent({
             session = this.settings['long-break']
         }
 
+        console.log('session: ', session)
+
         return session
     },
   }

@@ -6,12 +6,15 @@ import type {TimerProperties} from '@/stores/types'
 
 export default defineComponent({
   setup() {
-    const timer = useTimerStore();
+    const timer = useTimerStore()
     const { mobile } = useDisplay()
 
+    const {toggleTimer, clearTimer} = useTimerControls()
     return {
       timer,
       mobile,
+      toggleTimer,
+      clearTimer,
     };
   },
   beforeDestroy() {
@@ -38,7 +41,7 @@ export default defineComponent({
     },
   },
   methods: {
-    ...mapActions(useTimerStore, ['toggleTimer', 'clearTimeRemaining']),
+    ...mapActions(useTimerStore, ['clearTimeRemaining']),
   }
 });
 </script>
@@ -46,12 +49,12 @@ export default defineComponent({
 <template>
     <div class="controls-container">
       <v-btn
-        :disabled="!(timer.isStarted || timer.getTimeRemaining)"
+        :disabled="!(timer.isStarted || timer.timeRemaining)"
         variant="outlined"
         size="small"
         icon
         :color="getSession.color"
-        @click="clearTimeRemaining"
+        @click="clearTimer"
       >
         <v-icon>mdi-stop</v-icon>
       </v-btn>
@@ -63,14 +66,6 @@ export default defineComponent({
         @click="toggleTimer"
       >
         {{timer.isStarted ? 'Pause' : 'Start'}}
-        <v-tooltip
-          v-if="!mobile"
-          activator="parent"
-          location="bottom"
-          open-delay="500"
-        >
-          You can also use the keyboard's spacebar to start / stop
-        </v-tooltip>
       </v-btn>
       <v-btn
         variant="outlined"
